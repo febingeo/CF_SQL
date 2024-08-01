@@ -1,0 +1,62 @@
+select ct.country,ci.city,count(c.customer_id) as  customer_number
+from customer c
+join address a 
+on c.address_id = a.address_id
+join city ci
+on a.city_id = ci.city_id
+join country ct
+on ci.country_id =ct.country_id
+where
+ct.country in (
+select ct.country
+from customer c
+join address a 
+on c.address_id = a.address_id
+join city ci
+on a.city_id = ci.city_id
+join country ct
+on ci.country_id =ct.country_id
+group by ct.country
+order by count(c.customer_id) desc
+limit 10
+)
+group by ct.country,ci.city
+order by customer_number desc
+limit 10;
+
+----Top 5 customers with High amount
+select c.customer_id,concat(c.first_name,' ',c.last_name) as customer_name,ct.country,ci.city,sum(p.amount) as Highest_total_amount
+from payment p
+join customer c
+on p.customer_id = c.customer_id
+join address a 
+on c.address_id = a.address_id
+join city ci
+on a.city_id = ci.city_id
+join country ct
+on ci.country_id = ct.country_id
+where ci.city in 
+(select ci.city from customer c
+join address a 
+on c.address_id = a.address_id
+join city ci
+on a.city_id = ci.city_id
+join country ct
+on ci.country_id = ct.country_id
+where ct.country in 
+(select ct.country from customer c
+join address a 
+on c.address_id = a.address_id
+join city ci
+on a.city_id = ci.city_id
+join country ct
+on ci.country_id = ct.country_id
+group by ct.country
+order by count(c.customer_id) desc
+limit 10)
+group by ct.country,ci.city
+order by count(c.customer_id) desc
+limit 10)
+GROUP BY c.customer_id,ct.country, ci.city
+ORDER BY Highest_total_amount DESC
+LIMIT 5; 
