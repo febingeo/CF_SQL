@@ -1,0 +1,9 @@
+select title,release_year,language_id,rental_duration,count(*)
+from film
+group by title,release_year,language_id,rental_duration
+having count(*) >1
+
+select customer_id,store_id,first_name,last_name,email,count(*)
+from customer
+group by customer_id,store_id,first_name,last_name,email
+having count(*)>1;
