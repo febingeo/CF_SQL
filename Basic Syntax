@@ -1,1 +1,117 @@
-acA
+--Select statment with from and where
+
+select  *
+from information_schema.columns
+where table_name = 'payment';
+
+Explain select * from film;
+
+--insert statement
+INSERT INTO category(name) VALUES ('Thriller'),('Crime'),('Mystery'),('Romance'),('War');
+
+select film_id 
+from film
+where title ='African Egg';
+
+
+select category_id
+from film_category
+where film_id =5;
+
+select  name from category
+where category_id =8;
+
+select  category_id from category
+where name = 'Thriller'
+
+update film_category
+set category_id = 17  
+where category_id =8
+
+SELECT *, category_id
+FROM category
+WHERE film_id = 5;
+
+
+delete from category
+where name = 'Mystery' ;
+
+
+CREATE TABLE EMPLOYEES
+ (
+employee_id VARCHAR(30) NOT NULL,
+name VARCHAR(50),
+contact_number VARCHAR(30),
+designation_id INT,
+last_update TIMESTAMP NOT NULL DEFAULT now(),
+CONSTRAINT employee_pkey PRIMARY KEY (employee_id)
+);
+
+
+select * 
+from payment
+order by amount asc;
+
+
+select *
+from city
+order by city_id
+limit 10;
+
+SELECT rating
+from film
+group by rating
+
+SELECT rating ,count(film_id)
+from film
+group by rating;
+
+SELECT rating,rental_rate,count(film_id)
+FROM film
+GROUP BY rating,rental_rate;
+
+SELECT DISTINCT rating,release_year
+FROM film;
+
+SELECT rating,release_year
+FROM film
+GROUP BY rating,release_year;
+
+select distinct(rating),avg(rental_rate)
+from film
+group by rating;
+
+select title,last_update
+from film
+where last_update between '2013-05-20' AND '2013-05-30'
+limit 10;
+
+select title,description
+from film
+where rating = 'PG' 
+and rental_rate < 2;
+
+select title,description
+from film
+where rating ='PG'
+and NOT rental_rate < 2;
+
+
+select title,description
+from film
+where rating = 'PG' 
+or rental_rate < 2;
+
+select title
+from film
+where title like '%Italian%';
+
+select * 
+from film
+where rating IN ('PG','G','PG-13');
+
+select store_id,count(film_id) as COUNT_Film
+from inventory
+group by store_id
+having count(film_id) > 2300;
+
