@@ -1,3 +1,15 @@
+
+SELECT COUNT(shortmovies.film_ID) AS short_movie_count,
+shortmovies.rating
+FROM
+(SELECT film.film_ID,
+film.rating
+FROM film
+WHERE film.length <=100) AS shortmovies -- subquery renamed shortmovies
+WHERE shortmovies.rating IN ('G', 'PG', 'PG-13')
+GROUP BY shortmovies.rating;
+
+
 select ct.country,ci.city,count(c.customer_id) as  customer_number
 from customer c
 join address a 
