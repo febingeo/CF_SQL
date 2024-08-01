@@ -1,0 +1,37 @@
+select film_id,round(avg(rental_rate)) as average_rental_rate,
+max(rental_duration) as max_rental_duration,
+min(rental_duration) as min_rental_duration  	
+from film
+group by film_id
+order by max_rental_duration desc,average_rental_rate desc;
+
+
+select count(film_id)as count_of_movies,
+round(avg(rental_rate)) as average_rental_rate,
+max(rental_duration) as max_rental_duration,
+min(rental_duration) as min_rental_duration  	
+from film;
+
+
+select mode() within group (order by rating)
+as modal_value
+from film;
+
+
+
+select count(customer_id) as count_customer,
+count(store_id) as count_store,
+max(address_id) as max_address_id,
+min(address_id) as min_address_id,
+max(active) as max_active,
+min(active)as min_active
+from customer;
+
+
+select mode() within group (order by first_name)as modal_first_name,
+ 		mode() within group (order by last_name)as modal_last_name,
+		mode() within group (order by email)as modal_email,
+		mode() within group (order by activebool)as modal_activebool,
+		mode() within group (order by create_date)as modal_create_date,
+ 		mode() within group (order by last_update)as modal_last_update
+from customer;
