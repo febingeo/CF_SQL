@@ -1,4 +1,4 @@
---Select statment with from and where
+--Select statment with from and where,create,update,delete table
 
 select  *
 from information_schema.columns
